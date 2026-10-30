@@ -1,0 +1,61 @@
+# ===================== Python =====================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 虚拟环境
+.venv/
+venv/
+env/
+ENV/
+
+# 日志
+*.log
+
+# ===================== IDE / 编辑器 =====================
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ===================== Jupyter Notebook =====================
+.ipynb_checkpoints/
+
+# ===================== PPG2ABP 数据与模型 =====================
+# 原始 / 中间 / 切分数据（data.hdf5 约 2.5GB，test.p 约 446MB）
+data/
+raw_data/
+processed_data/
+ppgs/
+abps/
+
+# 模型权重（单个超过 GitHub 100MB 限制）
+models/
+History/
+
+# 各类二进制数据与预测产物
+*.hdf5
+*.p
+*.h5
+
+# ===================== 系统文件 =====================
+Thumbs.db
+Desktop.ini
+.DS_Store
