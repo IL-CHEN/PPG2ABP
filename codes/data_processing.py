@@ -11,7 +11,7 @@
 4. ``extract_episodes``：从原始数据中提取候选片段的 PPG / ABP 波形；
 5. ``merge_episodes``：合并所有片段为 ``data.hdf5``。
 
-注意：数据处理步骤计算量极大（论文实验环境在 i7-7700 CPU 上约需 9~11 天），
+注意：数据处理步骤计算量极大，
 建议直接下载已编译好的 ``data.hdf5`` 以跳过 2A~2E 步骤（见根目录 README）。
 """
 
@@ -37,8 +37,6 @@ def process_data():
 
     每个记录中，每隔 5 秒取一个 10 秒片段；每段记录为一行
     ``{起始采样点},{SBP},{DBP}``，写入 ``processed_data/Part_{k}_{i}.csv``。
-
-    该函数在 Intel Core i7-7700 CPU 上运行约需 6~7 天。
     """
     # 每段信号的采样点数与相邻片段起始点的步长（采样点）
     samples_in_episode = round(SAMPLING_FREQUENCY * EPISODE_LENGTH)
@@ -262,8 +260,6 @@ def extract_episodes(candidates):
 
     参数:
         candidates: 候选片段列表（文件编号, 记录编号, 片段起始采样点）
-
-    该函数在 Intel Core i7-7700 CPU 上运行约需 3~4 天。
     """
     os.makedirs(PPG_DIR, exist_ok=True)               # PPG 信号目录
     os.makedirs(ABP_DIR, exist_ok=True)               # ABP 信号目录
