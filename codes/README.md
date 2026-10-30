@@ -4,21 +4,22 @@ PPG2ABP 的完整流水线使用 **Python 3.5.2** 实现，深度学习模型基
 
 ## 模块一览
 
-| 脚本 | 作用 |
-| --- | --- |
-| `config.py` | 全局路径与超参数集中配置（采样率、信号长度、折数、批大小等） |
-| `data_processing.py` | 处理原始数据并降采样 |
-| `data_handling.py` | 将数据切分为训练深度网络所需的数据集 |
-| `models.py` | 包含多种网络模型定义（U-Net / MultiResUNet 系列） |
-| `metrics.py` | 辅助脚本，包含指标计算（BHS 标准） |
-| `helper_functions.py` | 辅助脚本，包含两阶段训练的数据与标签预处理函数 |
-| `train_models.py` | 使用 10 折交叉验证训练模型 |
-| `predict_test.py` | 生成测试数据的预测结果 |
-| `evaluate.py` | 在多种指标下评估 PPG2ABP |
+
+| 脚本                  | 作用                                                         |
+| --------------------- | ------------------------------------------------------------ |
+| `config.py`           | 全局路径与超参数集中配置（采样率、信号长度、折数、批大小等） |
+| `data_processing.py`  | 处理原始数据并降采样                                         |
+| `data_handling.py`    | 将数据切分为训练深度网络所需的数据集                         |
+| `models.py`           | 包含多种网络模型定义（U-Net / MultiResUNet 系列）            |
+| `metrics.py`          | 辅助脚本，包含指标计算（BHS 标准）                           |
+| `helper_functions.py` | 辅助脚本，包含两阶段训练的数据与标签预处理函数               |
+| `train_models.py`     | 使用 10 折交叉验证训练模型                                   |
+| `predict_test.py`     | 生成测试数据的预测结果                                       |
+| `evaluate.py`         | 在多种指标下评估 PPG2ABP                                     |
 
 ## 系统要求
 
-开发测试环境：Intel Core i7-7700（3.6 GHz，8 MB 缓存）CPU、16 GB 内存、NVIDIA TITAN XP（12 GB，1582 MHz）GPU，Ubuntu 16.04 操作系统。
+开发测试环境：13th Gen Intel(R) Core(TM) i7-13620H (2.40 GHz)、16 GB 内存、NVIDIA GeForce RTX 4060 Laptop GPU (8 GB)、Windows 11操作系统
 
 - **训练模型必须有 GPU**；
 - 仅测试 / 评估时无需 GPU。
@@ -29,7 +30,7 @@ PPG2ABP 的完整流水线使用 **Python 3.5.2** 实现，深度学习模型基
 pip3 install -r requirements.txt
 ```
 
-依赖版本以 `requirements.txt` 为准（TensorFlow 1.5.0 / Keras 2.2.4 时代版本，请勿升级，详见根目录 README）。
+依赖版本以 `requirements.txt` 为准（TensorFlow 2.6.0 / Keras 2.6.0 时代版本，请勿升级，详见根目录 README）。
 
 ## 下载原始数据集
 
@@ -50,7 +51,7 @@ unzip data.zip -d raw_data
 
 下载并解压数据（放入 `raw_data/` 目录）后，依次运行以下脚本：
 
-1. 处理数据（i7-7700 CPU 上约需 9~11 天）
+1. 处理数据
 
 ```bash
 python3 data_processing.py
@@ -62,7 +63,7 @@ python3 data_processing.py
 python3 data_handling.py
 ```
 
-3. 训练模型（NVIDIA TITAN XP GPU 上约需 11~12 天）
+3. 训练模型
 
 ```bash
 python3 train_models.py

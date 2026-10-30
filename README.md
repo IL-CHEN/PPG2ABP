@@ -1,7 +1,5 @@
 # PPG2ABP
 
-> **Translating Photoplethysmogram (PPG) Signals to Arterial Blood Pressure (ABP) Waveforms using Fully Convolutional Neural Networks**
-
 **作者：IL-CHEN**
 
 本项目是一个完整的 PPG → ABP 血压波形预测系统，基于全卷积神经网络（U-Net / MultiResUNet 系列）实现，采用 **Keras（TensorFlow 后端）**。本仓库由作者本人设计、开发并完整构建，包含数据处理、模型训练、测试评估的全流程代码、中文说明文档与可发布的工程化结构。
@@ -45,14 +43,15 @@ PPG2ABP/
 
 ## 环境要求
 
-| 组件 | 版本 | 说明 |
-| --- | --- | --- |
-| Python | 3.5 / 3.6 | TensorFlow 1.5 不支持更高版本 Python |
-| TensorFlow | 1.5.0（GPU） | 或 `tensorflow==1.5.0`（CPU） |
-| Keras | 2.2.4 | 深度监督多输出等接口依赖该版本行为 |
-| CUDA / cuDNN | 与 TF 1.5 配套 | GPU 训练必需 |
 
-**重要**：本项目代码基于 TensorFlow 1.x / Keras 2.2.4 时代的 API 实现，请勿升级深度学习框架，否则可能出现接口不兼容。
+| 组件         | 版本           | 说明                               |
+| ------------ | -------------- | ---------------------------------- |
+| Python       | 3.8            |                                    |
+| TensorFlow   | 2.6.0（GPU）   | 或`tensorflow==1.5.0`（CPU）       |
+| Keras        | 2.6.0          | 深度监督多输出等接口依赖该版本行为 |
+| CUDA / cuDNN | 与 TF 1.5 配套 | GPU 训练必需                       |
+
+**重要**：本项目代码基于 TensorFlow 2.6.0 / Keras 2.6.0 时代的 API 实现，请勿升级深度学习框架，否则可能出现接口不兼容。
 
 ### 安装
 
@@ -65,21 +64,22 @@ pip install -r requirements.txt
 
 ### 方式一：全流程（从原始数据开始）
 
-1. 下载 UCI 数据集：<https://archive.ics.uci.edu/ml/machine-learning-databases/00340/data.zip>
+1. 下载 UCI 数据集：[https://archive.ics.uci.edu/ml/machine-learning-databases/00340/data.zip](https://archive.ics.uci.edu/ml/machine-learning-databases/00340/data.zip)
 2. 解压到 `raw_data/` 目录（含 `Part_1.mat` ~ `Part_4.mat`）。
 3. 按 `codes/PPG2ABP.ipynb` 第 2 节依次执行数据处理（`process_data` → `downsample_data` → `extract_episodes` → `merge_episodes`）。
 
-> ⚠️ 数据处理计算量极大（原实验环境约需 9~11 天），如非必要，建议直接采用方式二。
+> 数据处理计算量极大，如非必要，建议直接采用方式二。
 
 ### 方式二：使用已编译好的精简数据（推荐）
 
-| 文件 | 用途 | 下载链接 |
-| --- | --- | --- |
-| `data/data.hdf5` | 处理完成的信号数据集（约 2.5 GB） | [Google Drive](https://drive.google.com/file/d/1IxN2sX2TX0uK6CFDh8eudb8haz3RlF7X/view?usp=sharing) |
-| `data/test.p` | 独立测试集（约 446 MB） | [Google Drive](https://drive.google.com/file/d/1YC9Qv7AWo20DULCEA4OxTCzxkGc-u7OY/view?usp=sharing) |
-| `data/meta9.p` | 第 10 折元数据（信号极值） | [Google Drive](https://drive.google.com/file/d/1bO93Z6r1rqZUZC3zQdvHQSSCjap_muia/view?usp=sharing) |
-| `models/ApproximateNetwork.h5` | 最优近似网络权重 | [Google Drive](https://drive.google.com/file/d/1R0t3VxPLBpQmIKKyH9ulDdr9irwsyOpD/view?usp=sharing) |
-| `models/RefinementNetwork.h5` | 最优精炼网络权重 | [Google Drive](https://drive.google.com/file/d/1qc97paeXHDWrOEsPR1_2tl7WtMcJxQbF/view?usp=sharing) |
+
+| 文件                           | 用途                              | 下载链接                                                                                           |
+| ------------------------------ | --------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `data/data.hdf5`               | 处理完成的信号数据集（约 2.5 GB） | [Google Drive](https://drive.google.com/file/d/1IxN2sX2TX0uK6CFDh8eudb8haz3RlF7X/view?usp=sharing) |
+| `data/test.p`                  | 独立测试集（约 446 MB）           | [Google Drive](https://drive.google.com/file/d/1YC9Qv7AWo20DULCEA4OxTCzxkGc-u7OY/view?usp=sharing) |
+| `data/meta9.p`                 | 第 10 折元数据（信号极值）        | [Google Drive](https://drive.google.com/file/d/1bO93Z6r1rqZUZC3zQdvHQSSCjap_muia/view?usp=sharing) |
+| `models/ApproximateNetwork.h5` | 最优近似网络权重                  | [Google Drive](https://drive.google.com/file/d/1R0t3VxPLBpQmIKKyH9ulDdr9irwsyOpD/view?usp=sharing) |
+| `models/RefinementNetwork.h5`  | 最优精炼网络权重                  | [Google Drive](https://drive.google.com/file/d/1qc97paeXHDWrOEsPR1_2tl7WtMcJxQbF/view?usp=sharing) |
 
 （如需 `processed_data.zip`、`candidates.p` 等中间产物，见 Notebook 内各阶段链接。）
 
@@ -117,13 +117,14 @@ python evaluate.py         # 评估
 
 ## 流水线与产物
 
-| 阶段 | 模块 | 主要产物 |
-| --- | --- | --- |
+
+| 阶段     | 模块                 | 主要产物                                                                         |
+| -------- | -------------------- | -------------------------------------------------------------------------------- |
 | 数据处理 | `data_processing.py` | `processed_data/*.csv`、`candidates.p`、`ppgs/*.p`、`abps/*.p`、`data/data.hdf5` |
-| 数据切分 | `data_handling.py` | `data/train{n}.p`、`data/val{n}.p`、`data/meta{n}.p`、`data/test.p` |
-| 模型训练 | `train_models.py` | `models/*_model1_fold{n}.h5`、`models/*_model2_fold{n}.h5`、`History/*.p` |
-| 测试预测 | `predict_test.py` | `test_output_approximate.p`、`test_output.p` |
-| 评估 | `evaluate.py` | BHS / AAMI 指标表、血压分级、Bland-Altman 图、回归图 |
+| 数据切分 | `data_handling.py`   | `data/train{n}.p`、`data/val{n}.p`、`data/meta{n}.p`、`data/test.p`              |
+| 模型训练 | `train_models.py`    | `models/*_model1_fold{n}.h5`、`models/*_model2_fold{n}.h5`、`History/*.p`        |
+| 测试预测 | `predict_test.py`    | `test_output_approximate.p`、`test_output.p`                                     |
+| 评估     | `evaluate.py`        | BHS / AAMI 指标表、血压分级、Bland-Altman 图、回归图                             |
 
 ## 评估指标
 
